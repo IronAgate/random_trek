@@ -1,19 +1,50 @@
 <!DOCTYPE html>
+<!--
+index.html
+23/12/04
+by Grey Keenan
+-->
 <html lang="en">
 <head>
 
 <meta charset="utf-8">
-
+<link rel="stylesheet" href="css/styles.css">
 <title>Trek Roulette</title>
 
 </head>
-
 <body>
-
-<h1>Hello World!</h1>
-
-<p>...</p>
-
+<!-- header, nav -->
+<header>
+	<h1>Trek Roulette</h1>
+</header>
+<nav>
+	
+</nav>
+<!-- main content -->
+<main>
+	<div id="randomizerSettings">
+		<h3><button id="showSettings" onclick="showSettings()">&#9776; Settings</button></h3>
+		
+		<ul id="seriesSelectionList" class="hidestart">
+			<li>
+				<button onclick="toggleAllSeries()">All</button>
+			</li>
+			<!-- list items built by script -->
+		</ul>
+	</div>
+	<br>
+	<div id="randomizer">
+		<h3><button id="generate" onclick="showResponse()">Generate</button></h3>
+		<div id="response" class="hidestart">
+			<p id="output">...</p>
+			<h4><button id="skip" onclick="skip()">skip</button></h4>
+		</div>
+	</div>
+</main>
+<!-- footer -->
+<footer>
+</footer>
+<!-- scripts -->
+	<script src="scripts/script.js"></script>
 </body>
-
 </html>

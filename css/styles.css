@@ -1,0 +1,16 @@
+/*
+styles.css
+23/12/04
+Grey Keenan
+*/
+
+/* CSS Reset */
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.hidestart {
+	display: none
+}
