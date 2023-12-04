@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-template.html
+index.html
 23/12/04
 by Grey Keenan
 -->
@@ -15,27 +15,36 @@ by Grey Keenan
 <body>
 <!-- header, nav -->
 <header>
-	<div class="mobile">
-		<h1><a id="mobile_burger" onclick="burger()"> &#9776; </a>Trek Roulette</h1>
-	</div>
-	<div class="desktop">
-	</div>
+	<h1>Trek Roulette</h1>
 </header>
 <nav>
-	<div class="mobile" id="mobile_nav">
-		<a href="index.html">Home</a>
-	</div>
-	<div class="desktop">
-	</div>
+	
 </nav>
 <!-- main content -->
 <main>
-	<p>...</p>
+	<div id="randomizerSettings">
+		<h3><button id="showSettings" onclick="showSettings()">&#9776; Settings</button></h3>
+		
+		<ul id="seriesSelectionList" class="hidestart">
+			<li>
+				<button onclick="toggleAllSeries()">All</button>
+			</li>
+			<!-- list items built by script -->
+		</ul>
+	</div>
+	<br>
+	<div id="randomizer">
+		<h3><button id="generate" onclick="showResponse()">Generate</button></h3>
+		<div id="response" class="hidestart">
+			<p id="output">...</p>
+			<h4><button id="skip" onclick="skip()">skip</button></h4>
+		</div>
+	</div>
 </main>
 <!-- footer -->
 <footer>
 </footer>
-<!-- script -->
-	<script src="scripts/core.js"></script>
+<!-- scripts -->
+	<script src="scripts/script.js"></script>
 </body>
 </html>

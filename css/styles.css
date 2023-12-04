@@ -11,26 +11,6 @@ Grey Keenan
 	border: 0;
 }
 
-/*Mobile Viewport, by default*/
-.desktop {
-	display: none;
-}
-.mobile {
-	display: block;
-}
-
-#mobile_nav {
-	display: none;
-}
-
-/* Desktop Viewport*/
-@media all and (min-width: 1000px) {
-	.mobile {
-		display: none;
-	}
-
-	.desktop {
-		display: block;
-	}
-	
+.hidestart {
+	display: none
 }
