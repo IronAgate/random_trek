@@ -1,7 +1,5 @@
 /*
 script.js
-23/12/04
-Grey Keenan
 */
 
 var data; //global var to hold episode lists
@@ -12,11 +10,16 @@ var seriesNames = [
 		"Deep_Space_9",
 		"Voyager",
 		"Enterprise",
-	];
+	]; //list of series, corresponds to txt files in 'data/'
 
-var OUT = document.getElementById("output");
+var out = document.getElementById("output"); //the paragraph element to print text to
 
 function generate() {
+	/* called by generate button element
+	outputs a randomly selected episode to the OUT variable
+	considers series checkboxes
+	*/
+	
 	
 	//todo: filter out user's already-watched episodes
 	
@@ -30,7 +33,7 @@ function generate() {
 	}
 	
 	if (totalEps == 0) {
-		OUT.textContent = "Nothing!";
+		out.textContent = "Nothing!";
 	}
 	
 	x = Math.floor(Math.random() * totalEps);
@@ -40,7 +43,7 @@ function generate() {
 			if (data[i].length < x) {
 				x -= data[i].length;
 			} else {
-				OUT.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][x];
+				out.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][x];
 				break;
 			}
 		}
@@ -49,12 +52,11 @@ function generate() {
 }
 
 function retrieveData(seriesNames) {
-	
-	//https://stackoverflow.com/questions/27761044/list-server-directory-using-javascript-xhr
-		//trying to request directory instead of file
-	//https://javascript.info/xmlhttprequest#the-basics
-	//https://stackoverflow.com/questions/48261908/how-to-read-files-in-directory-in-javascript
-		//guess you cant without hacky workarounds?
+	/*called by main() in parseData()
+	retrieves text data from 'data/'
+	returns array of data
+	based off of seriesName global list
+	*/
 	
 	var to = []
 	
@@ -77,9 +79,11 @@ function retrieveData(seriesNames) {
 }
 
 function parseData(textDatas) {
+	/* called by main()
+	go over text-formatting of data & convert to array of eps
+	*/
 	
 	var to = [];
-	
 	
 	for (let series = 0; series < textDatas.length; series++) {
 		to[series] = [];
@@ -97,6 +101,10 @@ function parseData(textDatas) {
 }
 
 function buildToggles() {
+	/* called by main()
+	creates checkboxes in list for series selection
+	based off of which series loaded from 'data/'
+	*/
 	var ul = document.getElementById("seriesToggles");
 	
 	for (let i = 0; i < seriesNames.length; i++) {
@@ -148,4 +156,5 @@ function main() {
 		//give options to edit user episode data
 		
 }
+
 main()

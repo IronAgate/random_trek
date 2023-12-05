@@ -1,17 +1,29 @@
 /*
 styles.css
-23/12/04
-Grey Keenan
 */
 
-/* CSS Reset */
+/* CSS Reset
 * {
 	margin: 0;
 	padding: 0;
 	border: 0;
+} */
+
+
+ul {
+	list-style-type: none;
+	display: block;
+	padding: 5px;
+	margin: 0;
 }
-/*
-.hidestart {
-	display: none
+
+#settings button {
+	width: 50px;
+	height: 25px;
+	margin-left: 5px;
 }
-*/
+
+#run {
+	width: 200px;
+	height: 50px;
+}
