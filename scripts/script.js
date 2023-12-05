@@ -4,105 +4,91 @@ script.js
 Grey Keenan
 */
 
-var OUT = document.getElementById("output");
+var data; //global var to hold episode lists
 
-
-function buildSeriesList() {
-	
-	var series = document.getElementById("seriesSelectionList");
-	
-	var shows = [
+var seriesNames = [
 		"The_Original_Series",
 		"The_Next_Generation",
 		"Deep_Space_9",
 		"Voyager",
 		"Enterprise",
 	];
-	
-	for(let i=0; i < shows.length; i++) {
-		
-		var li = document.createElement("li");
-		series.appendChild(li);
-		
-		var cb = document.createElement("input");
-		cb.type = "checkbox";
-		cb.id = "cb" + shows[i].replace(/_/g, '');
-		cb.checked = true;
-		li.appendChild(cb);
-		
-		var lbl = document.createElement("label");
-		lbl.setAttribute("for", "cb" + shows[i].replace(/_/g, ''));
-		lbl.innerHTML = ' ' + shows[i].replace(/_/g, ' ');
-		li.appendChild(lbl);
-	}
-	
-}
 
-
-// Functions called by HTML
+var OUT = document.getElementById("output");
 
 function generate() {
-	OUT.textContent = String(Math.floor(Math.random() * 10))
-}
-
-
-function showResponse() {
-	//called to initiate the randomizer
 	
-	document.getElementById("generate").style.display = "none";
-	document.getElementById("response").style.display = "block";
+	//todo: filter out user's already-watched episodes
 	
-	generate()
-}
-
-function toggleAllSeries() {
-	var cbs = document.getElementById("seriesSelectionList").children;
-	for (let i = 1; i < cbs.length; i++) {
-		if (!cbs[i].firstChild.checked) {
-			for (let n = i; n < cbs.length; n++) {
-				cbs[n].firstChild.checked = true;
-			}
-			return
+	var totalEps = 0;
+	for (let i = 0; i < data.length; i++) {
+		totalEps += data[i].length;
+	}
+	
+	x = Math.floor(Math.random() * totalEps);
+	
+	for (let i = 0; i < data.length; i++) {
+		if (data[i].length < x) {
+			x -= data[i].length;
+		} else {
+			OUT.textContent = seriesNames[i] + ": " + data[i][x];
 		}
 	}
-	for (let i = 1; i < cbs.length; i++) {
-		cbs[i].firstChild.checked = false;
+	
+}
+
+function retrieveData(seriesNames) {
+	
+	//https://stackoverflow.com/questions/27761044/list-server-directory-using-javascript-xhr
+		//trying to request directory instead of file
+	//https://javascript.info/xmlhttprequest#the-basics
+	//https://stackoverflow.com/questions/48261908/how-to-read-files-in-directory-in-javascript
+		//guess you cant without hacky workarounds?
+	
+	var to = []
+	
+	for (let i = 0; i < seriesNames.length; i++) {
+		var xmlreq = new XMLHttpRequest();
+		xmlreq.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				to[i] = this.response;
+			} else if (this.readyState == 4) {
+				console.log("| Unable to load data from: " + seriesNames[i] + " |");
+				seriesNames.splice(i, 1);
+				i--;
+			}
+		}
+		xmlreq.open("get", "https://ironagate.github.io/random_trek/data/" + seriesNames[i] + ".txt", false);
+		xmlreq.send();
+		//is a synchronous request
 	}
+	return to;
 }
 
-function skip() {
+function parseData(textDatas) {
 	
-	generate()
-}
-/*
-function remove() {
+	var to = [];
 	
-	generate()
-}
-
-function hold() {
 	
-	generate()
-}
-*/
-
-function showSettings() {
-	
-	var series = document.getElementById("seriesSelectionList");
-	
-	if (series.style.display == "block") {
-		series.style.display = "none";
-	} else {
-		series.style.display = "block";
+	for (let series = 0; series < textDatas.length; series++) {
+		to[series] = [];
+		splitData = textDatas[series].split('\n');
+		for (let episode = 0; episode < splitData.length; episode++) {
+			to[series][episode] = splitData[episode].split(': ')[1];
+		}
 	}
 	
+	return to;
 }
-
-
-// Main function
 
 function main() {
-	buildSeriesList()
+	
+	data = parseData(retrieveData(seriesNames));
+	
+	//todo: detect pre-existing user & load their cookies, if so
+		//display to user that user files have been located
+		//give options to edit user episode data
+		
+	//todo: options to select only certain series
 }
-
 main()
