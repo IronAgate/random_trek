@@ -8,46 +8,48 @@ starting with basic xorshift32
 	consider trying to implement xoroshiro128 later
 	but i think this will be plenty for what I need
 */
-
-var state = 0;
-
-function seed(newseed) {
-	if (newseed >>> 0 === 0) 
-		return false;
-	else
-		state = newseed >>> 0;
-		return true;
-}
-
-function seedDate() {
-	var newseed = 0;
-	for ( 
-			newseed = Date.now() >>> Math.floor(Math.random());
-			seed(newseed) == false;
-			newseed = Date.now() >>> Math.floor(Math.random())
-		)
-	return newseed;
-}
-
-function random() {
+class Xorshift {
 	
-	//values here from wikipedia
-	//period: 2^32 - 1
-	state ^= state << 13;
-	state ^= state >>> 17;
-	state ^= state << 5;
+	constructor() {
+		this.state = 0;
+	}
 	
-	state = state >>> 0; //force unsigned
-	
-	return state / 4294967296;
+	seed(newseed) {
+		if (newseed >>> 0 === 0) 
+			return false;
+		else
+			this.state = newseed >>> 0;
+			return true;
+	}
+	seedDate() {
+		var newseed = 0;
+		for ( 
+				newseed = Date.now() >>> Math.floor(Math.random());
+				this.seed(newseed) == false;
+				newseed = Date.now() >>> Math.floor(Math.random())
+			)
+		return newseed;
+	}
+	random() {
+		
+		//values here from wikipedia
+		//period: 2^32 - 1
+		this.state ^= this.state << 13;
+		this.state ^= this.state >>> 17;
+		this.state ^= this.state << 5;
+		
+		this.state = this.state >>> 0; //force unsigned
+		
+		return this.state / 4294967296;
+	}
+	range(a, b=0) {
+		return Math.floor((this.random() * a) + b)
+	}
 }
-
-
 
 function press() {
 	/* called by html button
 	for testing purposes */
-	
 	
 	var container = [];
 	
@@ -55,8 +57,8 @@ function press() {
 	
 	for (container.push(0); container.length < x; container.push(0));
 	
-	for (i = 0; i < 5000; i++) {
-		var y = Math.floor(random() * x);
+	for (i = 0; i < 10000; i++) {
+		var y = xrsh.range(x);
 		container[y] += 1;
 	}
 	
@@ -64,9 +66,8 @@ function press() {
 	
 }
 
-console.log(seedDate());
-
-
+var xrsh = new Xorshift();
+xrsh.seedDate();
 
 /* notes
 
