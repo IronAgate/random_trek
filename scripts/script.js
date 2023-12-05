@@ -32,6 +32,7 @@ function generate() {
 			x -= data[i].length;
 		} else {
 			OUT.textContent = seriesNames[i] + ": " + data[i][x];
+			break;
 		}
 	}
 	
