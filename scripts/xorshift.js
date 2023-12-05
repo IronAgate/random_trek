@@ -9,11 +9,10 @@ starting with basic xorshift32
 	but i think this will be plenty for what I need
 */
 class Xorshift {
-	
 	constructor() {
 		this.state = 0;
+		this.runs = 0;
 	}
-	
 	seed(newseed) {
 		if (newseed >>> 0 === 0) 
 			return false;
@@ -39,35 +38,23 @@ class Xorshift {
 		this.state ^= this.state << 5;
 		
 		this.state = this.state >>> 0; //force unsigned
+		this.runs += 1;
 		
 		return this.state / 4294967296;
 	}
 	range(a, b=0) {
 		return Math.floor((this.random() * a) + b)
 	}
-}
-
-function press() {
-	/* called by html button
-	for testing purposes */
-	
-	var container = [];
-	
-	var x = 10;
-	
-	for (container.push(0); container.length < x; container.push(0));
-	
-	for (i = 0; i < 10000; i++) {
-		var y = xrsh.range(x);
-		container[y] += 1;
+	shuffle(l) {
+		for (let i = 0; i < l.length; i++) {
+			var destination = this.range(l.length);
+			var second_item = l[destination];
+			l[destination] = l[i];
+			l[i] = second_item;
+		}
 	}
 	
-	console.log(container);
-	
 }
-
-var xrsh = new Xorshift();
-xrsh.seedDate();
 
 /* notes
 

@@ -2,8 +2,9 @@
 script.js
 */
 
-var data; //global var to hold episode lists
+var xrs = new Xorshift();
 
+var data; //global var to hold episode lists
 var seriesNames = [
 		"The_Original_Series",
 		"The_Next_Generation",
@@ -36,7 +37,7 @@ function generate() {
 		out.textContent = "Nothing!";
 	}
 	
-	x = Math.floor(Math.random() * totalEps);
+	x = xrs.range(totalEps);
 	
 	for (let i = 0; i < data.length; i++) {
 		if (cbs[i].firstChild.checked) {
@@ -48,7 +49,6 @@ function generate() {
 			}
 		}
 	}
-	
 }
 
 function retrieveData(seriesNames) {
@@ -77,7 +77,6 @@ function retrieveData(seriesNames) {
 	}
 	return to;
 }
-
 function parseData(textDatas) {
 	/* called by main()
 	go over text-formatting of data & convert to array of eps
@@ -96,7 +95,6 @@ function parseData(textDatas) {
 				//not urgent since none of the eps have ':'
 		}
 	}
-	
 	return to;
 }
 
@@ -124,7 +122,6 @@ function buildToggles() {
 	}
 }
 
-
 function toggleAllSeriesToggles() {
 	/* Called by 'all' button
 	if any checkboxes are empty, fills all of them
@@ -145,16 +142,57 @@ function toggleAllSeriesToggles() {
 	}
 }
 
+function ketchup(count) {
+	for (let i = 0; i < count; i++)
+		xrs.random();
+}
+
+function bake(name, value) {
+	document.cookie = name + '=' + String(value) + ';';
+}
+
+
 function main() {
 	
 	data = parseData(retrieveData(seriesNames));
 	
+	//get cookies
+	bake("plantbaby", 1);
+	bake("ketchupbottle", 1);
+	//var fakecookie = "plantbaby=1;ketchupbottle=5;";
+	//var fakecookie = "";
+	
+	//var cks = fakecookie.split(';');
+	var cks = String(document.cookies).split(';');
+	
+	var plantbaby = null;
+	var ketchupbottle = null;
+	
+	for (let i = 0; i < cks.length; i++) {
+		cke = cks[i].split('=');
+		if (cke[0] === "plantbaby")
+			plantbaby = cke[1];
+		else if (cke[0] === "ketchupbottle")
+			ketchupbottle = cke[1];
+	}
+	
+	//set seed | based on user seed if necessary
+	if (plantbaby != null)
+		xrs.seed(plantbaby);
+	else
+		bake("plantbaby", xrs.seedDate());
+	
+	//shuffle data
+	for (let i = 0; i < data.length; i++)
+		xrs.shuffle(data[i]);
+	
+	//run randomizer until caught up with user
+	if (ketchupbottle != null)
+		ketchup(ketchupbottle);
+	
+	
 	buildToggles();
 	
-	//todo: detect pre-existing user & load their cookies, if so
-		//display to user that user files have been located
-		//give options to edit user episode data
-		
 }
 
 main()
