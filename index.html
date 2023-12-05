@@ -16,17 +16,23 @@ by Grey Keenan
 <!-- header, nav -->
 <header>
 	<h1>Trek Roulette</h1>
+	<br>
 </header>
 <nav>
 	
 </nav>
 <!-- main content -->
 <main>
+	<div id="settings">
+		<button onclick="toggleAllSeriesToggles()">all</button>
+		<ul id="seriesToggles">
+			<!-- lis added in javascript -->
+		</ul>
+		<br>
+	</div>
 	<div id="randomizer">
-	<br>
-	<button id="run" onclick="generate()">Generate</button>
-	<br>
-	<p id="output">...</p>
+		<button id="run" onclick="generate()">generate</button>
+		<p id="output">...</p>
 	</div>
 </main>
 <!-- footer -->

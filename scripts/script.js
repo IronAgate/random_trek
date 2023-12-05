@@ -20,19 +20,29 @@ function generate() {
 	
 	//todo: filter out user's already-watched episodes
 	
+	var cbs = document.getElementById("seriesToggles").children;
+	
 	var totalEps = 0;
 	for (let i = 0; i < data.length; i++) {
-		totalEps += data[i].length;
+		if (cbs[i].firstChild.checked) {
+			totalEps += data[i].length;
+		}
+	}
+	
+	if (totalEps == 0) {
+		OUT.textContent = "Nothing!";
 	}
 	
 	x = Math.floor(Math.random() * totalEps);
 	
 	for (let i = 0; i < data.length; i++) {
-		if (data[i].length < x) {
-			x -= data[i].length;
-		} else {
-			OUT.textContent = seriesNames[i] + ": " + data[i][x];
-			break;
+		if (cbs[i].firstChild.checked) {
+			if (data[i].length < x) {
+				x -= data[i].length;
+			} else {
+				OUT.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][x];
+				break;
+			}
 		}
 	}
 	
@@ -76,20 +86,66 @@ function parseData(textDatas) {
 		splitData = textDatas[series].split('\n');
 		for (let episode = 0; episode < splitData.length; episode++) {
 			to[series][episode] = splitData[episode].split(': ')[1];
+			//ERR: if title has ':', will break
+				//can limit split to 1 time with custom function
+				//or reformat data files with tab or smth instead
+				//not urgent since none of the eps have ':'
 		}
 	}
 	
 	return to;
 }
 
+function buildToggles() {
+	var ul = document.getElementById("seriesToggles");
+	
+	for (let i = 0; i < seriesNames.length; i++) {
+		var li = document.createElement("li");
+		ul.appendChild(li);
+		
+		var cb = document.createElement("input");
+		cb.type = "checkbox";
+		cb.id = "cb" + seriesNames[i].replace(/_/g, '');
+		cb.checked = true;
+		li.appendChild(cb);
+		
+		var lbl = document.createElement("label");
+		lbl.setAttribute("for", "cb" + seriesNames[i].replace(/_/g, ''));
+		lbl.innerHTML = ' ' + seriesNames[i].replace(/_/g, ' ');
+		li.appendChild(lbl);
+	}
+}
+
+
+function toggleAllSeriesToggles() {
+	/* Called by 'all' button
+	if any checkboxes are empty, fills all of them
+	if all are full, empties all
+	*/
+	
+	var cbs = document.getElementById("seriesToggles").children;
+	for (let i = 0; i < cbs.length; i++) {
+		if (!cbs[i].firstChild.checked) {
+			for (let n = i; n < cbs.length; n++) {
+				cbs[n].firstChild.checked = true;
+			}
+			return
+		}
+	}
+	for (let i = 0; i < cbs.length; i++) {
+		cbs[i].firstChild.checked = false;
+	}
+}
+
 function main() {
 	
 	data = parseData(retrieveData(seriesNames));
+	
+	buildToggles();
 	
 	//todo: detect pre-existing user & load their cookies, if so
 		//display to user that user files have been located
 		//give options to edit user episode data
 		
-	//todo: options to select only certain series
 }
 main()
