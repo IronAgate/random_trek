@@ -22,23 +22,11 @@ by Grey Keenan
 </nav>
 <!-- main content -->
 <main>
-	<div id="randomizerSettings">
-		<h3><button id="showSettings" onclick="showSettings()">&#9776; Settings</button></h3>
-		
-		<ul id="seriesSelectionList" class="hidestart">
-			<li>
-				<button onclick="toggleAllSeries()">All</button>
-			</li>
-			<!-- list items built by script -->
-		</ul>
-	</div>
-	<br>
 	<div id="randomizer">
-		<h3><button id="generate" onclick="showResponse()">Generate</button></h3>
-		<div id="response" class="hidestart">
-			<p id="output">...</p>
-			<h4><button id="skip" onclick="skip()">skip</button></h4>
-		</div>
+	<br>
+	<button id="run" onclick="generate()">Generate</button>
+	<br>
+	<p id="output">...</p>
 	</div>
 </main>
 <!-- footer -->
