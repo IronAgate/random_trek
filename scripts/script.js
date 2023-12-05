@@ -3,15 +3,25 @@ script.js
 */
 
 var xrs = new Xorshift();
+var ketchupbottle = 0;
+
+var seriesIndexes = [
+	0,
+	0,
+	0,
+	0,
+	0,
+];
+var currentSeries = null;
 
 var data; //global var to hold episode lists
 var seriesNames = [
-		"The_Original_Series",
-		"The_Next_Generation",
-		"Deep_Space_9",
-		"Voyager",
-		"Enterprise",
-	]; //list of series, corresponds to txt files in 'data/'
+	"The_Original_Series",
+	"The_Next_Generation",
+	"Deep_Space_9",
+	"Voyager",
+	"Enterprise",
+]; //list of series, corresponds to txt files in 'data/'
 
 var out = document.getElementById("output"); //the paragraph element to print text to
 
@@ -22,14 +32,21 @@ function generate() {
 	*/
 	
 	
-	//todo: filter out user's already-watched episodes
+	if (currentSeries != null) {
+		seriesIndexes[currentSeries] += 1;
+		bake(seriesNames[currentSeries], seriesIndexes[currentSeries]);
+		
+		ketchupbottle += 1;
+		bake("ketchupbottle", ketchupbottle);
+	}
+	
 	
 	var cbs = document.getElementById("seriesToggles").children;
 	
 	var totalEps = 0;
 	for (let i = 0; i < data.length; i++) {
 		if (cbs[i].firstChild.checked) {
-			totalEps += data[i].length;
+			totalEps += data[i].length - seriesIndexes[i];
 		}
 	}
 	
@@ -41,14 +58,18 @@ function generate() {
 	
 	for (let i = 0; i < data.length; i++) {
 		if (cbs[i].firstChild.checked) {
-			if (data[i].length < x) {
-				x -= data[i].length;
+			if (data[i].length - seriesIndexes[i] < x) {
+				x -= data[i].length - seriesIndexes[i];
 			} else {
-				out.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][x];
+				out.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][seriesIndexes[i]];
+				currentSeries = i;
 				break;
 			}
 		}
 	}
+	
+	
+	
 }
 
 function retrieveData(seriesNames) {
@@ -68,6 +89,7 @@ function retrieveData(seriesNames) {
 			} else if (this.readyState == 4) {
 				console.log("| Unable to load data from: " + seriesNames[i] + " |");
 				seriesNames.splice(i, 1);
+				seriesIndexes.splice(i, 1);
 				i--;
 			}
 		}
@@ -157,23 +179,27 @@ function main() {
 	data = parseData(retrieveData(seriesNames));
 	
 	//get cookies
-	bake("plantbaby", 1);
-	bake("ketchupbottle", 1);
-	//var fakecookie = "plantbaby=1;ketchupbottle=5;";
+	//bake("plantbaby", 1);
+	//bake("ketchupbottle", 5);
+	//var fakecookie = "plantbaby=1;ketchupbottle=5;Enterprise=10";
 	//var fakecookie = "";
 	
 	//var cks = fakecookie.split(';');
 	var cks = String(document.cookies).split(';');
 	
 	var plantbaby = null;
-	var ketchupbottle = null;
+	//ketchupbottle is a global
 	
 	for (let i = 0; i < cks.length; i++) {
 		cke = cks[i].split('=');
 		if (cke[0] === "plantbaby")
-			plantbaby = cke[1];
+			plantbaby = Number(cke[1]);
 		else if (cke[0] === "ketchupbottle")
-			ketchupbottle = cke[1];
+			ketchupbottle = Number(cke[1]);
+		else
+			for (let n = 0; n < seriesNames.length; n++)
+				if (cke[0] === seriesNames[n])
+					seriesIndexes[n] = Number(cke[1]);
 	}
 	
 	//set seed | based on user seed if necessary
@@ -187,8 +213,7 @@ function main() {
 		xrs.shuffle(data[i]);
 	
 	//run randomizer until caught up with user
-	if (ketchupbottle != null)
-		ketchup(ketchupbottle);
+	ketchup(ketchupbottle);
 	
 	
 	buildToggles();

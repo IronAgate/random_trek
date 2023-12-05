@@ -11,7 +11,6 @@ starting with basic xorshift32
 class Xorshift {
 	constructor() {
 		this.state = 0;
-		this.runs = 0;
 	}
 	seed(newseed) {
 		if (newseed >>> 0 === 0) 
@@ -38,7 +37,6 @@ class Xorshift {
 		this.state ^= this.state << 5;
 		
 		this.state = this.state >>> 0; //force unsigned
-		this.runs += 1;
 		
 		return this.state / 4294967296;
 	}
