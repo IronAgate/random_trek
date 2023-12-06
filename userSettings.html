@@ -24,7 +24,7 @@ index.html
 	<p id="log"> > Existing user data not found.</p>
 </nav>
 <!-- main content -->
-<main>
+<main id="main" class="hide">
 	
 	<ul id="seriesButtons">
 	</ul>
@@ -34,7 +34,8 @@ index.html
 	</ul>
 	
 	<h4>Unviewed</h4>
-	<ul id="unviewedEpisodes">
+	<button id="reveal_unviewed" onclick="revealUnviewed(this)" class="hide">show</button>
+	<ul id="unviewedEpisodes" class="hide">
 	</ul>
 	
 </main>

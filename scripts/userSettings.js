@@ -35,6 +35,8 @@ function buildSeriesButtons() {
 			var uvul = document.getElementById("unviewedEpisodes");
 			
 			uvul.innerHTML = '';
+			document.getElementById("reveal_unviewed").style.display = "block";
+			uvul.style.display = "none";
 			
 			for (let n = seriesIndexes[i]; n < data[i].length; n++) {
 				var li2 = document.createElement("li");
@@ -51,6 +53,10 @@ function buildSeriesButtons() {
 	}
 }
 
+function revealUnviewed(sender) {
+	sender.style.display = "none";
+	document.getElementById("unviewedEpisodes").style.display = "block";
+}
 
 function cookiemonster() {
 	// deletes all cookies, then reloads page
@@ -98,8 +104,8 @@ function main() {
 	if (plantbaby != null) {
 		xrs.seed(plantbaby);
 		document.getElementById("log").textContent = "> Existing user data has been found!";
+		document.getElementById("main").style.display = "block";
 	} else {
-		document.body.main.style.display = "none";
 		//if no user data found, dont display user options
 	}
 	
