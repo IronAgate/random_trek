@@ -2,13 +2,14 @@
 styles.css
 */
 
-/*CSS Reset*/
+/*body, header, h1, h2, h4, ul, li, button, p, input {*/
 * {
 	margin: 0;
 	padding: 0;
 }
+
 .hide {
-	dispay: none;
+	display: none;
 }
 
 header, h2, h2 button, #randomizer, #randomizer button {
