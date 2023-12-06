@@ -185,7 +185,7 @@ function main() {
 	//var fakecookie = "";
 	
 	//var cks = fakecookie.split(';');
-	var cks = String(document.cookies).split(';');
+	var cks = String(document.cookie).split(';');
 	
 	var plantbaby = null;
 	//ketchupbottle is a global
