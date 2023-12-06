@@ -47,6 +47,9 @@ function retrieveData() {
 		xmlreq.open("get", "https://ironagate.github.io/random_trek/data/" + seriesNames[i] + ".txt", false);
 		xmlreq.send();
 		//is a synchronous request
+			//this is a deprecated feature
+			//https://xhr.spec.whatwg.org/
+			//? as in, it wont be supported in future? or just not ideal?
 	}
 	
 	/*parse text data*/

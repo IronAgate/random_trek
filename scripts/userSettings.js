@@ -14,21 +14,36 @@ function buildSeriesButtons() {
 		btn.textContent = seriesNames[i].replace(/_/g, ' ');
 		btn.onclick = function () {
 			
-			var eul = document.getElementById("viewedEpisodes");
+			var vul = document.getElementById("viewedEpisodes");
 			
 			//clear existing episode list items
-			eul.innerHTML = '';
+			vul.innerHTML = '';
 			
 			//configure new episode list items
 			for (let n = 0; n < seriesIndexes[i]; n++) {
 				var li2 = document.createElement("li");
-				eul.appendChild(li2);
+				vul.appendChild(li2);
 				
 				var p = document.createElement("p");
 				p.textContent = data[i][n];
 				li2.appendChild(p);
 			}
 			
+			//todo: feedback if nothing found
+				//section describing what this is
+			
+			var uvul = document.getElementById("unviewedEpisodes");
+			
+			uvul.innerHTML = '';
+			
+			for (let n = seriesIndexes[i]; n < data[i].length; n++) {
+				var li2 = document.createElement("li");
+				uvul.appendChild(li2);
+				
+				var p = document.createElement("p");
+				p.textContent = data[i][n];
+				li2.appendChild(p);
+			}
 			
 		}
 		li.appendChild(btn);
@@ -38,6 +53,9 @@ function buildSeriesButtons() {
 
 
 function cookiemonster() {
+	// deletes all cookies, then reloads page
+	
+	//todo: ask for confirmation
 	
 	var cks = document.cookie.split(';');
 	
@@ -46,8 +64,8 @@ function cookiemonster() {
 		document.cookie = cke + "=; expires=Fri, 01 Nov 2002 00:00:00 GMT";
 	}
 	
-	location.reload() //should call after cookiemonster, not incorporate
-	
+	location.reload() //should this be here or outside after cookiemonster() called?
+	//consider directing to index.html
 }
 
 
@@ -79,9 +97,10 @@ function main() {
 	//set seed | based on user seed if necessary
 	if (plantbaby != null) {
 		xrs.seed(plantbaby);
-		document.getElementById("log").textContent = "Existing user data has been found!";
+		document.getElementById("log").textContent = "> Existing user data has been found!";
 	} else {
-		bake("plantbaby", xrs.seedDate());
+		document.body.main.style.display = "none";
+		//if no user data found, dont display user options
 	}
 	
 	//shuffle data according to seed
@@ -93,6 +112,9 @@ function main() {
 	
 	
 	buildSeriesButtons();
+		//todo: option to view unseen eps as well
+		//todo: option to change seriesIndex
+		//todo: option to reset all user data
 	
 }
 

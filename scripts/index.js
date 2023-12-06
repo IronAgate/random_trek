@@ -162,7 +162,7 @@ function main() {
 	//set seed | based on user seed if necessary
 	if (plantbaby != null) {
 		xrs.seed(plantbaby);
-		document.getElementById("log").textContent = "Existing user data has been found!";
+		document.getElementById("log").textContent = "> Existing user data has been found!";
 	} else {
 		bake("plantbaby", xrs.seedDate());
 	}
