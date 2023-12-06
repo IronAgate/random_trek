@@ -91,7 +91,7 @@ function buildToggles() {
 		var cb = document.createElement("input");
 		cb.type = "checkbox";
 		cb.id = "cb" + seriesNames[i].replace(/_/g, '');
-		cb.checked = checks[i];
+		cb.checked = Number(checks[i]);
 		li.appendChild(cb);
 		
 		var lbl = document.createElement("label");
@@ -112,7 +112,7 @@ function run() {
 	
 	var totalEps = 0;
 	for (let i = 0; i < data.length; i++) {
-		if (checks[i]) {
+		if (Number(checks[i])) {
 			totalEps += data[i].length - seriesIndexes[i];
 		}
 	}
@@ -124,7 +124,7 @@ function run() {
 	x = xrs.range(totalEps);
 	
 	for (let i = 0; i < data.length; i++) {
-		if (checks[i]) {
+		if (Number(checks[i])) {
 			if (data[i].length - seriesIndexes[i] < x) {
 				x -= data[i].length - seriesIndexes[i];
 			} else {
