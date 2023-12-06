@@ -91,7 +91,7 @@ function buildToggles() {
 		var cb = document.createElement("input");
 		cb.type = "checkbox";
 		cb.id = "cb" + seriesNames[i].replace(/_/g, '');
-		cb.checked = 1; //should change w/ user settings
+		cb.checked = checks[i];
 		li.appendChild(cb);
 		
 		var lbl = document.createElement("label");
