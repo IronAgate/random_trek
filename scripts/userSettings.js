@@ -2,6 +2,37 @@
 userSettings.js
 */
 
+function buildSeriesButtons() {
+	
+	var ul = document.getElementById("seriesButtons");
+	
+	for (let i = 0; i < seriesNames.length; i++) {
+		var li = document.createElement("li");
+		ul.appendChild(li);
+		
+		var btn = document.createElement("button");
+		btn.textContent = seriesNames[i].replace(/_/g, ' ');
+		btn.onclick = function () {
+			
+			var eul = document.getElementById("viewedEpisodes");
+			for (let n = 0; n < seriesIndexes[i]; n++) {
+				var li2 = document.createElement("li");
+				eul.appendChild(li2);
+				
+				var p = document.createElement("p");
+				p.textContent = data[i][n];
+				li2.appendChild(p);
+				
+			}
+			
+			
+		}
+		li.appendChild(btn);
+		
+	}
+}
+
+
 
 function main() {
 	
@@ -43,6 +74,8 @@ function main() {
 	//run randomizer until caught up with user
 	ketchup(bottle);
 	
+	
+	buildSeriesButtons();
 	
 }
 
