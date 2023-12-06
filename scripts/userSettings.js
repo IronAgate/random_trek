@@ -58,11 +58,22 @@ function revealUnviewed(sender) {
 	document.getElementById("unviewedEpisodes").style.display = "block";
 }
 
+function reveal(id) {
+	var div = document.getElementById(id);
+	
+	if (div.style.display === "block")
+		div.style.display = "none";
+	else
+		div.style.display = "block";
+}
+
 function cookiemonster() {
 	// deletes all cookies, then reloads page
 	
-	//todo: ask for confirmation
-	
+	//confirm
+	if (!confirm("Are you sure? This will delete your viewed episodes and reshuffle the randomizer"))
+		return;
+
 	var cks = document.cookie.split(';');
 	
 	for (let i = 0; i < cks.length; i++) {

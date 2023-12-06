@@ -31,6 +31,11 @@ header, #randomizer, h3 {
 	text-align: center;
 }
 
+
+ul p {
+	margin: 0;
+}
+
 /* mobile viewport */
 @media (max-width: 999px) {
 	h1 {
@@ -43,7 +48,7 @@ header, #randomizer, h3 {
 	
 	h3 button {
 		font-size: 3vw;
-		aspect-ratio: 3/1;
+		/*aspect-ratio: 3/1;*/
 	}
 	
 	p {

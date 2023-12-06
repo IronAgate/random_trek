@@ -100,7 +100,7 @@ function revealSettings() {
 	
 	var settings = document.getElementById("settings")
 	
-	if (settings.style.display == "none") {
+	if (settings.style.display === "none") {
 		document.getElementById("randomizer_face").style.display = "block";
 		document.getElementById("randomizer_actives").style.display = "none";
 	
