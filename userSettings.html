@@ -14,23 +14,24 @@ index.html
 <!-- header, nav -->
 <header>
 	<h1>User Settings</h1>
-</header>
-<nav>
-	<h3>
-		<a href="index.html">
-			<button>Back</button>
-		</a>
-	</h3>
+	<nav>
+		<h2>
+			<a href="index.html">
+				<button>Back</button>
+			</a>
+		</h2>
+	</nav>
 	<p id="log"> > Existing user data not found.</p>
-</nav>
+</header>
+
 <!-- main content -->
 <main id="main" class="hide">
 	
-	<h3>
+	<h2>
 		<button onclick="reveal('series_details')">
 			&#9776; Series Details
 		</button>
-	</h3>
+	</h2>
 	<div id="series_details" class="hide">
 		<ul id="seriesButtons">
 		</ul>
@@ -40,16 +41,18 @@ index.html
 		</ul>
 		
 		<h4>Unviewed</h4>
-		<button id="reveal_unviewed" onclick="revealUnviewed(this)" class="hide">show</button>
+		<button id="reveal_unviewed" onclick="revealUnviewed(this)" class="hide">
+			show
+		</button>
 		<ul id="unviewedEpisodes" class="hide">
 		</ul>
 	</div>
 	
-	<h3>
+	<h2>
 		<button onclick="reveal('danger_zone')">
 			&#9776; Danger Zone
 		</button>
-	</h3>
+	</h2>
 	<div id="danger_zone" class="hide">
 		<button onclick="cookiemonster()">
 			reshuffle the randomizer

@@ -14,15 +14,16 @@ index.html
 <!-- header, nav -->
 <header>
 	<h1>Trek Roulette</h1>
-</header>
-<nav>
-	<h3>
-		<a href="userSettings.html">
-			<button>User Options</button>
-		</a>
-	</h3>
+	<nav>
+		<h2>
+			<a href="userSettings.html">
+				<button>User Options</button>
+			</a>
+		</h2>
+	</nav>
 	<p id="log"> > Existing user data not found.</p>
-</nav>
+</header>
+
 <!-- main content -->
 <main>
 	<div id="randomizer">
@@ -36,15 +37,17 @@ index.html
 		</div>
 		<br>
 	</div>
-	<h3>
+	<h2>
 		<button id="reveal_settings" onclick="revealSettings()">
 			&#9776; Settings
 		</button>
-	</h3>
+	</h2>
 	<div id="settings">
-		<button onclick="toggleAllSeriesToggles()">all</button>
+		<button onclick="toggleAllSeriesToggles()">
+			select all
+		</button>
 		<ul id="seriesToggles" >
-			<!-- lis added in javascript -->
+			<!-- list added in javascript -->
 		</ul>
 	</div>
 	
