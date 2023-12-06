@@ -30,7 +30,6 @@ function buildSeriesButtons() {
 			}
 			
 			//todo: feedback if nothing found
-				//section describing what this is
 			
 			var uvul = document.getElementById("unviewedEpisodes");
 			
@@ -71,18 +70,18 @@ function cookiemonster() {
 	// deletes all cookies, then reloads page
 	
 	//confirm
-	if (!confirm("Are you sure? This will delete your viewed episodes and reshuffle the randomizer"))
+	if (!confirm("Are you sure? This will forget your viewed episodes and reshuffle the randomizer."))
 		return;
-
-	var cks = document.cookie.split(';');
 	
+	//delete
+	var cks = document.cookie.split(';');
 	for (let i = 0; i < cks.length; i++) {
 		cke = cks[i].trim().split('=')[0];
 		document.cookie = cke + "=; expires=Fri, 01 Nov 2002 00:00:00 GMT";
 	}
 	
-	location.reload() //should this be here or outside after cookiemonster() called?
-	//consider directing to index.html
+	//reload
+	location.reload()
 }
 
 
@@ -95,7 +94,6 @@ function main() {
 	
 	var plantbaby = null;
 	//bottle is a global
-	//checks is a global
 	
 	for (let i = 0; i < cks.length; i++) {
 		cke = cks[i].trim().split('=');
@@ -103,35 +101,28 @@ function main() {
 			plantbaby = Number(cke[1]);
 		else if (cke[0] === "bottle")
 			bottle = Number(cke[1]);
-		//else if (cke[0] === "checks")
-		//	checks = cke[1];
 		else
 			for (let n = 0; n < seriesNames.length; n++)
 				if (cke[0] === seriesNames[n])
 					seriesIndexes[n] = Number(cke[1]);
 	}
 	
-	//set seed | based on user seed if necessary
+	//set seed based on user seed if found / display content if seed found
 	if (plantbaby != null) {
 		xrs.seed(plantbaby);
 		document.getElementById("log").textContent = "> Existing user data has been found!";
 		document.getElementById("main").style.display = "block";
-	} else {
-		//if no user data found, dont display user options
 	}
 	
 	//shuffle data according to seed
 	for (let i = 0; i < data.length; i++)
 		xrs.shuffle(data[i]);
-	
 	//run randomizer until caught up with user
 	ketchup(bottle);
 	
 	
 	buildSeriesButtons();
-		//todo: option to view unseen eps as well
 		//todo: option to change seriesIndex
-		//todo: option to reset all user data
 	
 }
 
