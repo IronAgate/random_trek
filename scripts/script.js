@@ -102,7 +102,7 @@ function buildToggles() {
 }
 
 function bake(name, value) {
-	document.cookie = name + '=' + String(value) + ';';
+	document.cookie = name + '=' + String(value) + "; expires=Tue, 19 Jan 2038 04:14:07 GMT";
 }
 
 function run() {	
