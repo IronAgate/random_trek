@@ -25,7 +25,7 @@ class Xorshift {
 				newseed = Date.now() >>> Math.floor(Math.random());
 				this.seed(newseed) == false;
 				newseed = Date.now() >>> Math.floor(Math.random())
-			)
+			);
 		return newseed;
 	}
 	random() {

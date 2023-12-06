@@ -191,7 +191,7 @@ function main() {
 	//ketchupbottle is a global
 	
 	for (let i = 0; i < cks.length; i++) {
-		cke = cks[i].trim().split('=');
+		cke = cks[i].split('=');
 		if (cke[0] === "plantbaby")
 			plantbaby = Number(cke[1]);
 		else if (cke[0] === "ketchupbottle")
