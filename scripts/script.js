@@ -3,8 +3,8 @@ script.js
 */
 
 var xrs = new Xorshift();
-var ketchupbottle = 0;
 
+var bottle = 0;
 var seriesIndexes = [
 	0,
 	0,
@@ -12,65 +12,17 @@ var seriesIndexes = [
 	0,
 	0,
 ];
+var checks = "11111";
 var currentSeries = null;
 
 var data; //global var to hold episode lists
-var seriesNames = [
+var seriesNames = [ //if changing, need to update seriesIndexes & checks
 	"The_Original_Series",
 	"The_Next_Generation",
 	"Deep_Space_9",
 	"Voyager",
 	"Enterprise",
 ]; //list of series, corresponds to txt files in 'data/'
-
-var out = document.getElementById("output"); //the paragraph element to print text to
-
-function generate() {
-	/* called by generate button element
-	outputs a randomly selected episode to the OUT variable
-	considers series checkboxes
-	*/
-	
-	
-	if (currentSeries != null) {
-		seriesIndexes[currentSeries] += 1;
-		bake(seriesNames[currentSeries], seriesIndexes[currentSeries]);
-		
-		ketchupbottle += 1;
-		bake("ketchupbottle", ketchupbottle);
-	}
-	
-	
-	var cbs = document.getElementById("seriesToggles").children;
-	
-	var totalEps = 0;
-	for (let i = 0; i < data.length; i++) {
-		if (cbs[i].firstChild.checked) {
-			totalEps += data[i].length - seriesIndexes[i];
-		}
-	}
-	
-	if (totalEps == 0) {
-		out.textContent = "Nothing!";
-	}
-	
-	x = xrs.range(totalEps);
-	
-	for (let i = 0; i < data.length; i++) {
-		if (cbs[i].firstChild.checked) {
-			if (data[i].length - seriesIndexes[i] < x) {
-				x -= data[i].length - seriesIndexes[i];
-			} else {
-				out.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][seriesIndexes[i]];
-				currentSeries = i;
-				break;
-			}
-		}
-	}
-	
-	
-	
-}
 
 function retrieveData(seriesNames) {
 	/*called by main() in parseData()
@@ -120,6 +72,11 @@ function parseData(textDatas) {
 	return to;
 }
 
+function ketchup(count) {
+	for (let i = 0; i < count; i++)
+		xrs.random();
+}
+
 function buildToggles() {
 	/* called by main()
 	creates checkboxes in list for series selection
@@ -134,7 +91,7 @@ function buildToggles() {
 		var cb = document.createElement("input");
 		cb.type = "checkbox";
 		cb.id = "cb" + seriesNames[i].replace(/_/g, '');
-		cb.checked = true;
+		cb.checked = 1; //should change w/ user settings
 		li.appendChild(cb);
 		
 		var lbl = document.createElement("label");
@@ -142,6 +99,89 @@ function buildToggles() {
 		lbl.innerHTML = ' ' + seriesNames[i].replace(/_/g, ' ');
 		li.appendChild(lbl);
 	}
+}
+
+function bake(name, value) {
+	document.cookie = name + '=' + String(value) + ';';
+}
+
+function run() {	
+	
+	var out = document.getElementById("output");
+	var cbs = document.getElementById("seriesToggles").children;
+	
+	var totalEps = 0;
+	for (let i = 0; i < data.length; i++) {
+		if (checks[i]) {
+			totalEps += data[i].length - seriesIndexes[i];
+		}
+	}
+	
+	if (totalEps == 0) {
+		out.textContent = "Nothing!";
+	}
+	
+	x = xrs.range(totalEps);
+	
+	for (let i = 0; i < data.length; i++) {
+		if (checks[i]) {
+			if (data[i].length - seriesIndexes[i] < x) {
+				x -= data[i].length - seriesIndexes[i];
+			} else {
+				out.textContent = seriesNames[i].replace(/_/g, ' ') + ": " + data[i][seriesIndexes[i]];
+				currentSeries = i;
+				break;
+			}
+		}
+	}
+	
+}
+
+function generate() {
+	/* called by generate button element
+	*/
+	
+	document.getElementById("randomizer_face").style.display = "none";
+	document.getElementById("randomizer_actives").style.display = "block";
+	document.getElementById("settings").style.display = "none";
+	
+	var cbs = document.getElementById("seriesToggles").children;
+	var newchecks = '';
+	for (let i = 0; i < data.length; i++) {
+		newchecks += Number(cbs[i].firstChild.checked)
+	}
+	checks = newchecks;
+	bake("checks", checks);
+	
+	run();
+}
+
+function next() {
+	/* called by 'next' button element */
+	
+	seriesIndexes[currentSeries] += 1;
+	bake(seriesNames[currentSeries], seriesIndexes[currentSeries]);
+		
+	bottle += 1;
+	bake("bottle", bottle);
+	
+	run();
+}
+
+
+function revealSettings() {
+	
+	var settings = document.getElementById("settings")
+	
+	if (settings.style.display == "block") {
+		settings.style.display = "none";
+	} else {
+		document.getElementById("randomizer_face").style.display = "block";
+		document.getElementById("randomizer_actives").style.display = "none";
+	
+		settings.style.display = "block";
+	}
+	
 }
 
 function toggleAllSeriesToggles() {
@@ -164,14 +204,6 @@ function toggleAllSeriesToggles() {
 	}
 }
 
-function ketchup(count) {
-	for (let i = 0; i < count; i++)
-		xrs.random();
-}
-
-function bake(name, value) {
-	document.cookie = name + '=' + String(value) + ';';
-}
 
 
 function main() {
@@ -179,23 +211,19 @@ function main() {
 	data = parseData(retrieveData(seriesNames));
 	
 	//get cookies
-	//bake("plantbaby", 1);
-	//bake("ketchupbottle", 5);
-	//var fakecookie = "plantbaby=1;ketchupbottle=5;Enterprise=10";
-	//var fakecookie = "";
-	
-	//var cks = fakecookie.split(';');
-	var cks = String(document.cookie).split(';');
+	var cks = document.cookie.split(';');
 	
 	var plantbaby = null;
-	//ketchupbottle is a global
+	//bottle is a global
 	
 	for (let i = 0; i < cks.length; i++) {
 		cke = cks[i].trim().split('=');
 		if (cke[0] === "plantbaby")
 			plantbaby = Number(cke[1]);
-		else if (cke[0] === "ketchupbottle")
-			ketchupbottle = Number(cke[1]);
+		else if (cke[0] === "bottle")
+			bottle = Number(cke[1]);
+		else if (cke[0] === "checks")
+			checks = cke[1];
 		else
 			for (let n = 0; n < seriesNames.length; n++)
 				if (cke[0] === seriesNames[n])
@@ -213,10 +241,13 @@ function main() {
 		xrs.shuffle(data[i]);
 	
 	//run randomizer until caught up with user
-	ketchup(ketchupbottle);
+	ketchup(bottle);
+	
 	
 	
 	buildToggles();
+	
+	
 	
 }
 

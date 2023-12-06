@@ -13,6 +13,7 @@ class Xorshift {
 		this.state = 0;
 	}
 	seed(newseed) {
+		//set seed, returns false if seed num == 0 so can fix
 		if (newseed >>> 0 === 0) 
 			return false;
 		else
@@ -20,30 +21,33 @@ class Xorshift {
 			return true;
 	}
 	seedDate() {
+		//set seed as consequence of Date.now() + math.random
 		var newseed = 0;
 		for ( 
-				newseed = Date.now() >>> Math.floor(Math.random());
+				newseed = Date.now() >>> Math.floor(Math.random() * 10);
 				this.seed(newseed) == false;
-				newseed = Date.now() >>> Math.floor(Math.random())
+				newseed = Date.now() >>> Math.floor(Math.random() * 10)
 			);
 		return newseed;
 	}
 	random() {
+		//generate a random number, divide so is btwn 0-1
 		
-		//values here from wikipedia
 		//period: 2^32 - 1
-		this.state ^= this.state << 13;
+		this.state ^= this.state << 13;//values here from wikipedia
 		this.state ^= this.state >>> 17;
 		this.state ^= this.state << 5;
 		
-		this.state = this.state >>> 0; //force unsigned
+		this.state = this.state >>> 0; //force unsigned number
 		
 		return this.state / 4294967296;
 	}
 	range(a, b=0) {
+		/* random number between b and a */
 		return Math.floor((this.random() * a) + b)
 	}
 	shuffle(l) {
+		/* randomize the order of lists */
 		for (let i = 0; i < l.length; i++) {
 			var destination = this.range(l.length);
 			var second_item = l[destination];

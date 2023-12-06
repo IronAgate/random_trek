@@ -9,7 +9,11 @@ styles.css
 	border: 0;
 } */
 
-header {
+.hide {
+	display: none;
+}
+
+header, #randomizer, h3 {
 	background-color: #dddddd;
 }
 
@@ -19,10 +23,7 @@ header {
 	padding: 0;
 }
 
-#randomizer {
-	background-color: #dddddd;
-}
-#run {
+.randomizer_button {
 	display: block;
 	margin: auto;
 }
@@ -47,7 +48,7 @@ header {
 		font-size: 3vw;
 	}
 
-	#run {
+	.randomizer_button {
 		width: 60%;
 		aspect-ratio: 4/1;
 		font-size: 5vw;
@@ -75,7 +76,7 @@ header {
 		margin-left: 5%;
 		aspect-ratio: 4/1;
 	}
-	#run {
+	.randomizer_button {
 		width: 25%;
 		font-size: 1.5vw;
 		aspect-ratio: 6/1;

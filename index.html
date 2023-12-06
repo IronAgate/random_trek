@@ -20,17 +20,23 @@ index.html
 </nav>
 <!-- main content -->
 <main>
-	<div id="settings">
-		<button onclick="toggleAllSeriesToggles()">all</button>
-		<ul id="seriesToggles">
-			<!-- lis added in javascript -->
-		</ul>
-	</div>
 	<div id="randomizer">
 		<br>
-		<p id="output">...</p>
-		<button id="run" onclick="generate()">generate</button>
+		<div id="randomizer_face">
+			<button class="randomizer_button" onclick="generate()">></button>
+		</div>
+		<div id="randomizer_actives" class="hide">
+			<p id="output">...</p>
+			<button class="randomizer_button" onclick="next()">></next>
+		</div>
 		<br>
+	</div>
+	<h3><button id="reveal_settings" onclick="revealSettings()">&#9776; Settings</button></h3>
+	<div id="settings">
+		<button onclick="toggleAllSeriesToggles()">all</button>
+		<ul id="seriesToggles" >
+			<!-- lis added in javascript -->
+		</ul>
 	</div>
 </main>
 <!-- footer -->
