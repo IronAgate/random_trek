@@ -173,13 +173,13 @@ function revealSettings() {
 	
 	var settings = document.getElementById("settings")
 	
-	if (settings.style.display == "block") {
-		settings.style.display = "none";
-	} else {
+	if (settings.style.display == "none") {
 		document.getElementById("randomizer_face").style.display = "block";
 		document.getElementById("randomizer_actives").style.display = "none";
 	
 		settings.style.display = "block";
+	} else {
+		settings.style.display = "none";
 	}
 	
 }

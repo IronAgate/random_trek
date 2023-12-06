@@ -17,6 +17,10 @@ header, #randomizer, h3 {
 	background-color: #dddddd;
 }
 
+h3 {
+	padding: 1%;
+}
+
 #settings ul {
 	list-style-type: none;
 	margin: 0;
@@ -36,7 +40,13 @@ header, #randomizer, h3 {
 	h1 {
 		font-size: 10vw;
 	}
-
+	
+	#reveal_settings {
+		font-size: 3vw;
+		aspect-ratio: 3/1;
+		width: 20%;
+	}
+	
 	#settings ul {
 		font-size: 5vw;
 		padding-bottom: 3%;
@@ -67,7 +77,6 @@ header, #randomizer, h3 {
 	#settings {
 		margin-left: 1%;
 		font-size: 20px;
-		padding-bottom: 1%;
 	}
 	
 	#randomizer {
@@ -77,9 +86,9 @@ header, #randomizer, h3 {
 		aspect-ratio: 4/1;
 	}
 	.randomizer_button {
-		width: 25%;
-		font-size: 1.5vw;
-		aspect-ratio: 6/1;
+		width: 50%;
+		aspect-ratio: 4/1;
+		font-size: 2vw;
 	}
 	#output {
 		font-size: 1.3vw;
