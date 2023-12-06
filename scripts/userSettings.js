@@ -46,6 +46,8 @@ function cookiemonster() {
 		document.cookie = cke + "=; expires=Fri, 01 Nov 2002 00:00:00 GMT";
 	}
 	
+	location.reload() //should call after cookiemonster, not incorporate
+	
 }
 
 
