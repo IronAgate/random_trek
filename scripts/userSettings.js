@@ -15,6 +15,11 @@ function buildSeriesButtons() {
 		btn.onclick = function () {
 			
 			var eul = document.getElementById("viewedEpisodes");
+			
+			//clear existing episode list items
+			eul.innerHTML = '';
+			
+			//configure new episode list items
 			for (let n = 0; n < seriesIndexes[i]; n++) {
 				var li2 = document.createElement("li");
 				eul.appendChild(li2);
