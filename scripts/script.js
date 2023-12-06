@@ -11,9 +11,9 @@ var seriesIndexes = [
 	0,
 	0,
 	0,
-];
+]; //corresponds to seriesNames & data, retrieved from cookies
 
-var data; //global var to hold episode lists
+var data = []; //global var to hold episode lists
 var seriesNames = [ //if changing, need to update seriesIndexes & checks
 	"The_Original_Series",
 	"The_Next_Generation",
@@ -22,20 +22,21 @@ var seriesNames = [ //if changing, need to update seriesIndexes & checks
 	"Enterprise",
 ]; //list of series, corresponds to txt files in 'data/'
 
-function retrieveData(seriesNames) {
+function retrieveData() {
 	/*called by main() in parseData()
 	retrieves text data from 'data/'
 	returns array of data
 	based off of seriesName global list
 	*/
 	
-	var to = []
+	/*request data as text*/
+	var textDatas = [];
 	
 	for (let i = 0; i < seriesNames.length; i++) {
 		var xmlreq = new XMLHttpRequest();
 		xmlreq.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-				to[i] = this.response;
+				textDatas[i] = this.response;
 			} else if (this.readyState == 4) {
 				console.log("| Unable to load data from: " + seriesNames[i] + " |");
 				seriesNames.splice(i, 1);
@@ -47,27 +48,20 @@ function retrieveData(seriesNames) {
 		xmlreq.send();
 		//is a synchronous request
 	}
-	return to;
-}
-function parseData(textDatas) {
-	/* called by main()
-	go over text-formatting of data & convert to array of eps
-	*/
 	
-	var to = [];
-	
+	/*parse text data*/
 	for (let series = 0; series < textDatas.length; series++) {
-		to[series] = [];
+		data[series] = [];
 		splitData = textDatas[series].split('\n');
 		for (let episode = 0; episode < splitData.length; episode++) {
-			to[series][episode] = splitData[episode].split(': ')[1];
+			data[series][episode] = splitData[episode].split(': ')[1];
 			//ERR: if title has ':', will break
 				//can limit split to 1 time with custom function
 				//or reformat data files with tab or smth instead
 				//not urgent since none of the eps have ':'
 		}
 	}
-	return to;
+	
 }
 
 function ketchup(count) {

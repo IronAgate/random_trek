@@ -136,13 +136,14 @@ function toggleAllSeriesToggles() {
 
 function main() {
 	
-	data = parseData(retrieveData(seriesNames));
+	retrieveData(); //sets data to 'data' global
 	
 	//get cookies
 	var cks = document.cookie.split(';');
 	
 	var plantbaby = null;
 	//bottle is a global
+	//checks is a global
 	
 	for (let i = 0; i < cks.length; i++) {
 		cke = cks[i].trim().split('=');
@@ -166,7 +167,7 @@ function main() {
 		bake("plantbaby", xrs.seedDate());
 	}
 	
-	//shuffle data
+	//shuffle data according to seed
 	for (let i = 0; i < data.length; i++)
 		xrs.shuffle(data[i]);
 	
