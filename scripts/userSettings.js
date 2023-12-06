@@ -27,7 +27,6 @@ function buildSeriesButtons() {
 				var p = document.createElement("p");
 				p.textContent = data[i][n];
 				li2.appendChild(p);
-				
 			}
 			
 			
@@ -37,6 +36,17 @@ function buildSeriesButtons() {
 	}
 }
 
+
+function cookiemonster() {
+	
+	var cks = document.cookie.split(';');
+	
+	for (let i = 0; i < cks.length; i++) {
+		cke = cks[i].trim().split('=')[0];
+		document.cookie = cke + "=; expires=Fri, 01, Nov 2002 00:00:00 GMT";
+	}
+	
+}
 
 
 function main() {
