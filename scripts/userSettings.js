@@ -35,6 +35,7 @@ function buildSeriesButtons() {
 			
 			uvul.innerHTML = '';
 			document.getElementById("series_details_content").style.display = "block";
+			document.getElementById("reveal_unviewed").style.display = "block";
 			uvul.style.display = "none";
 			
 			for (let n = seriesIndexes[i]; n < data[i].length; n++) {
@@ -70,7 +71,7 @@ function cookiemonster() {
 	// deletes all cookies, then reloads page
 	
 	//confirm
-	if (!confirm("Are you sure? This will forget your viewed episodes and reshuffle the randomizer."))
+	if (!confirm("Are you sure? Reshuffling the randomizer will forget which episodes you have already viewed."))
 		return;
 	
 	//delete
