@@ -2,12 +2,11 @@
 styles.css
 */
 
-/*body, header, h1, h2, h4, ul, li, button, p, input {*/
+/*CSS Reset*/
 * {
 	margin: 0;
 	padding: 0;
 }
-
 .hide {
 	display: none;
 }
@@ -20,6 +19,18 @@ h2 button, li button {
 }
 li button {
 	background-color: white;
+}
+
+#randomizer button {
+	margin: auto;
+	display: block;
+}
+#output {
+	text-align: center;
+}
+
+#danger_zone button {
+	color: #dd1111;
 }
 
 /* mobile viewport */
@@ -61,11 +72,8 @@ li button {
 		width: 60%;
 		aspect-ratio: 4/1;
 		font-size: 5vw;
-		margin: auto;
-		display: block;
 	}
 	#output {
-		text-align: center;
 		font-size: 4vw;
 		margin-bottom: 1vw;
 	}
@@ -79,11 +87,7 @@ li button {
 	}
 	h4 {
 		font-size: 4vw;
-		margin-top: 0.5vw;
-		margin-bottom: 0.5vw;
-	}
-	#danger_zone button {
-		color: #dd1111;
+		margin: 0.5vw;
 	}
 }
 
@@ -102,4 +106,36 @@ li button {
 	#log {
 		
 	}
+
+	#reveal_unviewed, #danger_zone button, #settings button {
+		padding: 2px;
+	}
+	#reveal_unviewed, #danger_zone button, #settings, #series_details {
+		margin: 5px;
+	}
+	
+	#randomizer {
+		width: 400px;
+	}
+	#randomizer button {
+		width: 200px;
+		height: 50px;
+	}
+	#output {
+		margin-bottom: 7px;
+	}
+	#settings ul {
+		list-style-type: none;
+	}
+	#settings button {
+		margin-bottom: 5px;
+	}
+
+	#series_details ul {
+		margin-left: 20px;
+	}
+	h4 {
+		margin: 5px;
+	}
+	
 }
