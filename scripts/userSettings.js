@@ -125,6 +125,9 @@ function main() {
 	buildSeriesButtons();
 		//todo: option to change seriesIndex
 	
+	//temporary solution
+	document.getElementById("cookie_out").textContent = String(document.cookie);
+	
 }
 
 main()

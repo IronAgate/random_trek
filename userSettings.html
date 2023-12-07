@@ -24,7 +24,7 @@ index.html
 </nav>
 <p id="log"> > Existing user data not found.</p>
 <!-- main content -->
-<main id="main" class="hide">
+<main id="main" class="unhide">
 	
 	<h2>
 		<button onclick="reveal('series_details')">
@@ -47,6 +47,16 @@ index.html
 			<ul id="unviewedEpisodes">
 			</ul>
 		</div>
+	</div>
+	
+	<h2>
+		<button onclick="reveal('user_data')">
+			&#9776; <u>User Data</u>
+		</button>
+	</h2>
+	<div id="user_data" class="hide">
+		<p>The following text is the cookies that represent your data. In the future, there will be functionality to transfer user data using this text.</p>
+		<p id="cookie_out">...</p>
 	</div>
 	
 	<h2>
