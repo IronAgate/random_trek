@@ -34,7 +34,7 @@ function buildSeriesButtons() {
 			var uvul = document.getElementById("unviewedEpisodes");
 			
 			uvul.innerHTML = '';
-			document.getElementById("reveal_unviewed").style.display = "block";
+			document.getElementById("series_details_content").style.display = "block";
 			uvul.style.display = "none";
 			
 			for (let n = seriesIndexes[i]; n < data[i].length; n++) {

@@ -14,12 +14,10 @@ styles.css
 header, h2, h2 button, #randomizer, #randomizer button {
 	background-color: #dddde0;
 }
-h2 button, li button {
+h2 button {
 	border: 0;
 }
-li button {
-	background-color: white;
-}
+
 
 #randomizer button {
 	margin: auto;
@@ -85,6 +83,10 @@ li button {
 	#series_details ul {
 		margin-left: 5vw;
 	}
+	#series_details li button {
+		margin:0.5vw;
+		padding: 0.5vw;
+	}
 	h4 {
 		font-size: 4vw;
 		margin: 0.5vw;
@@ -133,6 +135,10 @@ li button {
 
 	#series_details ul {
 		margin-left: 20px;
+	}
+	#series_details li button {
+		margin: 2px;
+		padding: 2px;
 	}
 	h4 {
 		margin: 5px;
