@@ -71,7 +71,7 @@ function cookiemonster() {
 	// deletes all cookies, then reloads page
 	
 	//confirm
-	if (!confirm("Are you sure? Reshuffling the randomizer will forget which episodes you have already viewed."))
+	if (!confirm("Are you sure? Reshuffling the randomizer will cause your 'viewed episodes' to be forgotten."))
 		return;
 	
 	//delete
