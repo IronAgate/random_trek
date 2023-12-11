@@ -48,8 +48,8 @@ function run() {
 	}
 	
 	x = xrs.range(totalEps);
+	bake("bottle", bottle); //bake first to save last, not current
 	bottle += 1; //moved here to try to fix setting issue
-	bake("bottle", bottle);
 	
 	for (let i = 0; i < data.length; i++) {
 		if (Number(checks[i])) {
