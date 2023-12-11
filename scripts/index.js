@@ -48,6 +48,7 @@ function run() {
 	}
 	
 	x = xrs.range(totalEps);
+	bottle += 1; //moved here to try to fix setting issue
 	
 	for (let i = 0; i < data.length; i++) {
 		if (Number(checks[i])) {
@@ -89,7 +90,6 @@ function next() {
 		seriesIndexes[currentSeries] += 1;
 		bake(seriesNames[currentSeries], seriesIndexes[currentSeries]);
 	
-		bottle += 1;
 		bake("bottle", bottle);
 	}
 	
@@ -97,6 +97,9 @@ function next() {
 }
 
 function revealSettings() {
+	
+	//todo: change so doesnt block existing generator. Instead
+	//... just applies next time generator is run
 	
 	var settings = document.getElementById("settings")
 	
